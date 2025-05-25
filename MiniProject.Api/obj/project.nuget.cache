@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "eB5Up3gpm8M=",
+  "success": true,
+  "projectFilePath": "D:\\Revature\\Training\\MiniProj\\AmableAMiniProject1\\MiniProject.Api\\MiniProject.Api.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\AAAri\\.nuget\\packages\\microsoft.aspnetcore.openapi\\9.0.5\\microsoft.aspnetcore.openapi.9.0.5.nupkg.sha512",
+    "C:\\Users\\AAAri\\.nuget\\packages\\microsoft.openapi\\1.6.17\\microsoft.openapi.1.6.17.nupkg.sha512"
+  ],
+  "logs": []
+}
