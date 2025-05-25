@@ -11,4 +11,8 @@
     <ProjectReference Include="..\MiniProject.Models\MiniProject.Models.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.5" />
+  </ItemGroup>
+
 </Project>

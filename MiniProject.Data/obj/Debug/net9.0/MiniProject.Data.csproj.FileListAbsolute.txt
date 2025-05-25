@@ -1,0 +1,16 @@
+D:\Revature\Training\MiniProj\AmableAMiniProject1\MiniProject.Data\bin\Debug\net9.0\MiniProject.Data.deps.json
+D:\Revature\Training\MiniProj\AmableAMiniProject1\MiniProject.Data\bin\Debug\net9.0\MiniProject.Data.dll
+D:\Revature\Training\MiniProj\AmableAMiniProject1\MiniProject.Data\bin\Debug\net9.0\MiniProject.Data.pdb
+D:\Revature\Training\MiniProj\AmableAMiniProject1\MiniProject.Data\bin\Debug\net9.0\MiniProject.Models.dll
+D:\Revature\Training\MiniProj\AmableAMiniProject1\MiniProject.Data\bin\Debug\net9.0\MiniProject.Models.pdb
+D:\Revature\Training\MiniProj\AmableAMiniProject1\MiniProject.Data\obj\Debug\net9.0\MiniProject.Data.csproj.AssemblyReference.cache
+D:\Revature\Training\MiniProj\AmableAMiniProject1\MiniProject.Data\obj\Debug\net9.0\MiniProject.Data.GeneratedMSBuildEditorConfig.editorconfig
+D:\Revature\Training\MiniProj\AmableAMiniProject1\MiniProject.Data\obj\Debug\net9.0\MiniProject.Data.AssemblyInfoInputs.cache
+D:\Revature\Training\MiniProj\AmableAMiniProject1\MiniProject.Data\obj\Debug\net9.0\MiniProject.Data.AssemblyInfo.cs
+D:\Revature\Training\MiniProj\AmableAMiniProject1\MiniProject.Data\obj\Debug\net9.0\MiniProject.Data.csproj.CoreCompileInputs.cache
+D:\Revature\Training\MiniProj\AmableAMiniProject1\MiniProject.Data\obj\Debug\net9.0\MiniProject.Data.sourcelink.json
+D:\Revature\Training\MiniProj\AmableAMiniProject1\MiniProject.Data\obj\Debug\net9.0\MiniProj.CAEB4600.Up2Date
+D:\Revature\Training\MiniProj\AmableAMiniProject1\MiniProject.Data\obj\Debug\net9.0\MiniProject.Data.dll
+D:\Revature\Training\MiniProj\AmableAMiniProject1\MiniProject.Data\obj\Debug\net9.0\refint\MiniProject.Data.dll
+D:\Revature\Training\MiniProj\AmableAMiniProject1\MiniProject.Data\obj\Debug\net9.0\MiniProject.Data.pdb
+D:\Revature\Training\MiniProj\AmableAMiniProject1\MiniProject.Data\obj\Debug\net9.0\ref\MiniProject.Data.dll
