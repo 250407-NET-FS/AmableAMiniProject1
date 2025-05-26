@@ -5,9 +5,17 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace MiniProject.Data;
 
-public class FitnessContext : IdentityDbContext<User, IdentityRole<Guid>, Guid>
+public class FitnessContext(DbContextOptions<FitnessContext> options) : IdentityDbContext<User, IdentityRole<Guid>, Guid>(options)
 {
-    public FitnessContext(DbContextOptions<FitnessContext> options) : base(options) { }
-
+    public DbSet<Workout> Workouts { get; set; }
+    public DbSet<Exercise> Exercises { get; set; }
+    public DbSet<WorkoutExercise> WorkoutExercises { get; set; }
     
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+{
+    base.OnModelCreating(modelBuilder);
+
+    modelBuilder.Entity<WorkoutExercise>()
+        .HasKey(we => new { we.WorkoutId, we.ExerciseId });
+}
 }

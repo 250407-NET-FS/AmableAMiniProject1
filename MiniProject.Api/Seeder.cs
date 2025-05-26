@@ -1,12 +1,11 @@
 //This logic will run once.
 //We create/use this AFTER we set up identity AND do a migration for that
 using MiniProject.Models;
-
 using Microsoft.AspNetCore.Identity;
 using MiniProject.Data;
 
 
-namespace MiniProject.API;
+namespace MiniProject.Api;
 
 //Im making this class static, I don't want anything to create a RolesInitializer object
 public static class Seeder
@@ -78,44 +77,3 @@ public static class Seeder
         }
     }
 }
-
-//     public static async Task SeedProperty(IServiceProvider serviceProvider)
-//     {
-
-
-//         var db = serviceProvider.GetRequiredService<JazaContext>();
-//         var userManager = serviceProvider.GetRequiredService<UserManager<User>>();
-
-
-//         const string userEmail = "user@user.com";
-//         var user = await userManager.FindByEmailAsync(userEmail);
-//         if (user is null)
-//         {
-//             return;
-//         }
-
-//         if (!db.Property.Any())
-//         {
-//             var property = new Property(
-//                 "USA",              // country
-//                 "Florida",          // state
-//                 "Miami",            // city
-//                 "33101",            // zipCode
-//                 "321 Pine St",      // streetAddress
-//                 25.7617,            // latitude
-//                 -80.1918,           // longitude
-//                 "",                 // imageLink
-//                 1000000m,           // startingPrice
-//                 3,                  // bedrooms
-//                 2.5m,               // bathrooms
-//                 1,                  // garages
-//                 1,                  // pools
-//                 true,               // hasBasement
-//                 user.Id             // ownerId
-//                 );
-//             property.Coordinates = new Point(0, 0) { SRID = 4326 };
-//             db.Property.Add(property);
-//             await db.SaveChangesAsync();
-//         }
-//     }
-// }

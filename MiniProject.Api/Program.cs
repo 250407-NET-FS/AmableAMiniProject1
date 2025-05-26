@@ -9,6 +9,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore;
 using System.Security.Claims;
+using MiniProject.Api;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,7 +18,21 @@ var connectionString =
         ?? throw new InvalidOperationException("Connection string"
         + "'DefaultConnection' not found.");
 
-builder.Services.AddDbContext<FitnessContext>();
+
+
+builder.Services.AddDbContext<FitnessContext>(o =>
+{
+    o.UseSqlServer(connectionString);
+});
+
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+
+builder.Services.AddMediatR(options => {
+
+    options.RegisterServicesFromAssemblyContaining<MiniProject.Services.Users.Commands.LoginUser>();
+    
+});
 
 
 
@@ -80,7 +95,9 @@ builder.Services.AddAuthorization();
 
 //Services
 
-// builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IUserService, UserService>();
+
+
 
 
 
@@ -178,22 +195,22 @@ app.MapControllers();
 
 
 // For first timec
-// using (var scope = app.Services.CreateScope())
-// {
-//     var services = scope.ServiceProvider;
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
 
-//     try
-//     {
-//         await Seeder.SeedAdmin(services);
-//         await Seeder.SeedUser(services);
-//         await Seeder.SeedProperty(services);
-//     }
-//     catch (Exception ex)
-//     {
-//         var logger = services.GetRequiredService<ILogger<Program>>();
-//         logger.LogError(ex, "Error seeding roles");
-//     }
-// }
+    try
+    {
+        await Seeder.SeedAdmin(services);
+        await Seeder.SeedUser(services);
+
+    }
+    catch (Exception ex)
+    {
+        var logger = services.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "Error seeding roles");
+    }
+}
 
 
 app.Run();
