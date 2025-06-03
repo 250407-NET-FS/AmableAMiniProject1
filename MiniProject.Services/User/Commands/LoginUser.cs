@@ -13,18 +13,18 @@ public class LoginUser
         public string Password { get; set; } = string.Empty;
     }
 
-    public class Handler(UserManager<User> userManager, IUserService userService) 
+    public class Handler(UserManager<User> userManager, IUserService userService)
         : IRequestHandler<Command, string>
     {
         public async Task<string> Handle(Command request, CancellationToken cancellationToken)
         {
-            var user = await userManager.FindByEmailAsync(request.Email)
-                ?? throw new Exception("Invalid credentials");
+            var user = await userManager.FindByEmailAsync(request.Email);
+            if (user == null)
+                return null;
 
-            var result = await userManager.CheckPasswordAsync(user, request.Password);
-
-            if (!result)
-                throw new Exception("Invalid credentials");
+            var valid = await userManager.CheckPasswordAsync(user, request.Password);
+            if (!valid)
+                return null;
 
 
             return await userService.GenerateToken(user);

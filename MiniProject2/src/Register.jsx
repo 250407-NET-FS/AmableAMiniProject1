@@ -106,8 +106,8 @@ export default function SignUp(props) {
       event.preventDefault();
       return;
     }
-  const email = event.currentTarget.email.value;
-  const password = event.currentTarget.password.value;
+    const email = event.currentTarget.email.value;
+    const password = event.currentTarget.password.value;
     const data = await register({ email, password });
     if (data){
       setRegisterFailure(false);
@@ -189,7 +189,7 @@ export default function SignUp(props) {
             <Typography sx={{ textAlign: 'center' }}>
               Already have an account?{' '}
               <Link
-                href="/material-ui/getting-started/templates/sign-in/"
+                href="/SignIn"
                 variant="body2"
                 sx={{ alignSelf: 'center' }}
               >

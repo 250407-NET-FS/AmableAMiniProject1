@@ -14,6 +14,12 @@ public class UsersController : ApiController
     [HttpPost("login")]
     public async Task<ActionResult<string>> Login(LoginUser.Command command, CancellationToken ct)
     {
-        return await Mediator.Send(command, ct);
+        var token = await Mediator.Send(command, ct);
+        if (token == null)
+        {
+            return Unauthorized(new { message = "Invalid credentials" });
+        }
+
+        return Ok(new { token, message = "Login successful" });
     }
 }
