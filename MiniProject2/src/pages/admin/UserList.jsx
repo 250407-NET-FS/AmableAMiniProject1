@@ -1,114 +1,152 @@
+// src/pages/admin/UserList.jsx
 import React, { useEffect, useState } from "react";
 import { api } from "../../services/api";
 import { useAuth } from "../../context/AuthContext";
+import {
+  Box,
+  Grid,
+  Card,
+  CardContent,
+  CardActions,
+  Typography,
+  Button,
+  CircularProgress,
+} from "@mui/material";
 
-function UserList() {
+export default function UserList() {
   const [users, setUsers] = useState([]);
   const { user: admin } = useAuth();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     api
-      .get("user/admin")
-      .then((res) => setUsers(res.data))
-      .catch((err) => console.error(err));
+      .get("admin")
+      .then((res) => {
+        setUsers(res.data);
+      })
+      .catch((err) => console.error("Error fetching user list:", err))
+      .finally(() => setLoading(false));
   }, []);
 
   const banHandler = (userId) => {
     api
-      .post(`user/admin/ban/${userId}`)
+      .post(`admin/ban/${userId}`)
       .then((res) => {
         const updatedUser = res.data;
-        setUsers((prevUsers) =>
-          prevUsers.map((user) =>
-            user.id === updatedUser.id
-              ? { ...user, lockoutEnabled: true }
-              : user
+        setUsers((prev) =>
+          prev.map((u) =>
+            u.id === updatedUser.id ? { ...u, isLockedOut: true } : u
           )
         );
       })
-      .catch((err) => console.error("Ban failed: ", err.message));
+      .catch((err) => console.error("Ban failed:", err));
   };
 
   const unbanHandler = (userId) => {
-    console.log("Sending unban request for:", userId);
     api
-      .post(`user/admin/unban/${userId}`)
+      .post(`admin/unban/${userId}`)
       .then((res) => {
         const updatedUser = res.data;
-        setUsers((prevUsers) =>
-          prevUsers.map((user) =>
-            user.id === updatedUser.id
-              ? { ...user, lockoutEnabled: false }
-              : user
+        setUsers((prev) =>
+          prev.map((u) =>
+            u.id === updatedUser.id ? { ...u, isLockedOut: false } : u
           )
         );
       })
-      .catch((err) => console.error("Unban failed: ", err.message));
+      .catch((err) => console.error("Unban failed:", err));
   };
 
   const deleteHandler = (userId) => {
     api
-      .delete(`user/admin/${userId}`)
+      .delete(`admin/${userId}`)
       .then(() => {
-        setUsers((prevUsers) => prevUsers.filter((u) => u.id !== userId));
+        setUsers((prev) => prev.filter((u) => u.id !== userId));
       })
-      .catch((err) => console.error("Delete failed ", err.message));
+      .catch((err) => console.error("Delete failed:", err));
   };
 
+  if (loading) {
+    return (
+      <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
+        <CircularProgress />
+      </Box>
+    );
+  }
+
   return (
-    <>
-      <div className="container">
-        <h1 className="admin-options">User List</h1>
-        <ul className="cards" style={{listStyle: "none"}}>
+    <Box sx={{ p: 2 }}>
+      <Typography variant="h4" align="center" gutterBottom>
+        User List
+      </Typography>
+
+      {users.length === 0 ? (
+        <Typography align="center">No users found.</Typography>
+      ) : (
+        <Grid container spacing={2}>
           {users.map((u) => (
-            <UserCard
-              key={u.id}
-              name={u.fullName}
-              id={u.id}
-              email={u.email}
-              lockoutEnabled={u.lockoutEnabled}
-              isAdmin={u.id === admin.id}
-              banHandler={() => banHandler(u.id)}
-              unbanHandler={() => unbanHandler(u.id)}
-              deleteHandler={() => deleteHandler(u.id)}
-            ></UserCard>
+            <Grid key={u.id}>
+              <Card variant="outlined" sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
+                <CardContent>
+                  <Typography variant="h6" gutterBottom noWrap>
+                    {u.userName || u.email}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    ID: {u.id}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    Email: {u.email}
+                  </Typography>
+                  <Typography variant="body2" sx={{ mt: 1 }}>
+                    Status:{" "}
+                    {u.isLockedOut ? (
+                      <Typography component="span" color="error">
+                        Banned
+                      </Typography>
+                    ) : (
+                      <Typography component="span" color="success.main">
+                        Active
+                      </Typography>
+                    )}
+                  </Typography>
+                </CardContent>
+
+                <Box sx={{ flexGrow: 1 }} />
+
+                <CardActions>
+                  {!admin || u.id !== admin.id ? (
+                    <>
+                      {u.isLockedOut ? (
+                        <Button size="small" onClick={() => unbanHandler(u.id)}>
+                          Unban
+                        </Button>
+                      ) : (
+                        <Button size="small" onClick={() => banHandler(u.id)}>
+                          Ban
+                        </Button>
+                      )}
+                      <Button
+                        size="small"
+                        color="error"
+                        onClick={() => deleteHandler(u.id)}
+                      >
+                        Delete
+                      </Button>
+                    </>
+                  ) : (
+                    <Typography
+                      variant="caption"
+                      color="text.secondary"
+                      sx={{ ml: 1 }}
+                    >
+                      (You)
+                    </Typography>
+                  )}
+                </CardActions>
+              </Card>
+            </Grid>
           ))}
-        </ul>
-      </div>
-    </>
-  );
-}
-
-function UserCard({
-  name,
-  id,
-  email,
-  lockoutEnabled,
-  isAdmin,
-  banHandler,
-  unbanHandler,
-  deleteHandler,
-}) {
-  return (
-
-    <li className="card">
-      <h4>{name}</h4>
-      <p>Id: {id}</p>
-      <p>Email: {email}</p>
-      <div className="button-group">
-      {!isAdmin && (
-        <>
-          {lockoutEnabled ? (
-            <button onClick={unbanHandler}>Unban</button>
-          ) : (
-            <button onClick={banHandler}>Ban</button>
-          )}
-          <button onClick={deleteHandler}>Delete</button>
-        </>
+        </Grid>
       )}
-      </div>
-    </li>
+    </Box>
   );
 }
-
-export default UserList;

@@ -13,10 +13,7 @@ function Dashboard() {
               <Link to="UserList">View all Users</Link>
             </li>
             <li>
-              <Link to="PropertyList">View All Properties</Link>
-            </li>
-            <li>
-              <Link to="/">Return to Home</Link>
+              <Link to="PropertyList">Workout List</Link>
             </li>
           </ul>
           <Outlet />

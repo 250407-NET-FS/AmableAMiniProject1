@@ -28,6 +28,7 @@ body,
   height: 100%;
   margin: 0;
   padding: 0;
+
 }
 
 body {
@@ -103,6 +104,3 @@ button:focus-visible {
 
 }
 
-.css-19midj6 {
-    /* padding: 16px; */
-}
