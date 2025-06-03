@@ -95,14 +95,10 @@ export const AuthProvider = ({ children }) => {
       // Check if the status is successful
       if (response.status >= 200 && response.status < 300) {
         // Check if Auth Controller sends good message
-        if (response.data && response.data.message) {
-          console.log(response.data.message);
           return true; // Registration is successful
         }
 
-        console.error("No success message.");
-        return false;
-      } else {
+      else {
         console.error("Failed to register:", response.status, response.data);
         return false;
       }

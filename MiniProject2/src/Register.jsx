@@ -1,10 +1,7 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import Checkbox from '@mui/material/Checkbox';
-import CssBaseline from '@mui/material/CssBaseline';
 import Divider from '@mui/material/Divider';
-import FormControlLabel from '@mui/material/FormControlLabel';
 import FormLabel from '@mui/material/FormLabel';
 import FormControl from '@mui/material/FormControl';
 import Link from '@mui/material/Link';
@@ -13,9 +10,9 @@ import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import MuiCard from '@mui/material/Card';
 import { styled } from '@mui/material/styles';
-import AppTheme from '../shared-theme/AppTheme';
-import ColorModeSelect from '../shared-theme/ColorModeSelect';
 import { useAuth } from './context/AuthContext';
+import { useNavigate } from "react-router-dom";
+
 
 
 const Card = styled(MuiCard)(({ theme }) => ({
@@ -62,6 +59,7 @@ const SignUpContainer = styled(Stack)(({ theme }) => ({
 
 export default function SignUp(props) {
   const {register} = useAuth();
+  const navigate = useNavigate();
 
   const [emailError, setEmailError] = React.useState(false);
   const [emailErrorMessage, setEmailErrorMessage] = React.useState('');
@@ -102,16 +100,16 @@ export default function SignUp(props) {
   };
 
   const handleSubmit = async (event) => {
+    event.preventDefault();
     if ( emailError || passwordError) {
-      event.preventDefault();
       return;
     }
     const email = event.currentTarget.email.value;
     const password = event.currentTarget.password.value;
-    const data = await register({ email, password });
-    if (data){
-      setRegisterFailure(false);
-      setRegisterMessage('Registed successful');
+    const success = await register({ email, password });
+    
+    if (success){
+      navigate("../signin")
     }
     else {
       setRegisterFailure(true);
@@ -120,9 +118,7 @@ export default function SignUp(props) {
   };
 
   return (
-    <AppTheme {...props}>
-      <CssBaseline enableColorScheme />
-      <ColorModeSelect sx={{ position: 'fixed', top: '1rem', right: '1rem' }} />
+    <>
       <SignUpContainer direction="column" justifyContent="space-between">
         <Card variant="outlined">
           <Typography
@@ -199,6 +195,6 @@ export default function SignUp(props) {
           </Box>
         </Card>
       </SignUpContainer>
-    </AppTheme>
+    </>
   );
 }
