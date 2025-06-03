@@ -12,6 +12,6 @@ public class Workout
     public User? User { get; set; }
 
     // M–M to Exercise
-    [JsonIgnore]
+    //[JsonIgnore]
     public ICollection<WorkoutExercise>? WorkoutExercises { get; set; }
 }

@@ -97,8 +97,12 @@ button:focus-visible {
   display: flex;
   gap: 1.5rem;
   margin-top: 1rem;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
   padding: 0.5rem;
-  /* background: linear-gradient(to bottom, var(--orange-red), #8097B7); */
+
+}
+
+.css-19midj6 {
+    /* padding: 16px; */
 }

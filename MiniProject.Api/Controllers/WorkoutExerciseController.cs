@@ -25,10 +25,18 @@ public class WorkoutExercisesController : ApiController
 
             return BadRequest("Invalid GUID format for workoutId or exerciseId.");
         }
-
-
-
         return await Mediator.Send(new GetWorkoutExerciseDetails.Query { WorkoutId = workoutGuid, ExerciseId = exerciseGuid }, ct);
+    }
+
+    [HttpGet("{userid}")]
+    public async Task<ActionResult<List<WorkoutExercise>>> GetWorkoutExerciseByUserId(string userid, CancellationToken ct)
+    {
+        if (!Guid.TryParse(userid, out var userIdGuid))
+        {
+
+            return BadRequest("Invalid GUID format for workoutId or exerciseId.");
+        }
+        return await Mediator.Send(new GetWorkoutExerciseListById.Query { UserId= userIdGuid }, ct);
     }
 
 

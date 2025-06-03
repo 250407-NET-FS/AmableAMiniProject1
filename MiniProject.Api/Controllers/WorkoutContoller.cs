@@ -18,10 +18,19 @@ public class WorkoutsController : ApiController
         return await Mediator.Send(new GetWorkoutList.Query(), ct);
     }
 
+
+
     [HttpGet("{id}")]
     public async Task<ActionResult<Workout>> GetWorkoutById(string id, CancellationToken ct)
     {
         return await Mediator.Send(new GetWorkoutDetails.Query { Id = id }, ct);
+    }
+
+    [HttpGet("user/{userId:guid}")]
+    public async Task<ActionResult<List<Workout>>> GetWorkoutsByUserId(Guid userId, CancellationToken ct)
+    {
+        var workouts = await Mediator.Send(new GetWorkoutsByUserId.Query { UserId = userId }, ct);
+        return Ok(workouts);
     }
 
 

@@ -22,10 +22,6 @@ const NavBar = ({ mode, toggleColorMode }) => {
   const theme = useTheme();
   const { user, logout } = useAuth();
 
-
-
-  
-
   return (
     <AppBar
       position="static"
@@ -38,57 +34,48 @@ const NavBar = ({ mode, toggleColorMode }) => {
       }}
     >
       <Container maxWidth={false} disableGutters>
-        <Toolbar sx={{ px: "1.5rem" }}>
-          <IconButton component={Link} to="/" disableRipple>
-            <img src={logo} alt="App Logo" className="logo-image" />
-          </IconButton>
-
-          <Typography
-            variant="h4"
-            component={Link}
-            to="/"
-            sx={{ color: "#fff", fontWeight: "bold", ml: 1 }}
-          >
-            Workout Tracker
-          </Typography>
-
-          <Box sx={{ flexGrow: 1, ml: 3 }}>
-            {[
-              { name: "Listings", path: "/listings" },
-              { name: "Favorites", path: "/favorites" },
-            ].map((page) => (
-              <Button
-                key={page.name}
-                component={Link}
-                to={page.path}
-                disableRipple
-                sx={{ color: "#fff", textTransform: "none" }}
-              >
-                {page.name}
-              </Button>
-            ))}
-          </Box>
-
-          <Box sx={{ mr: 2 }}>
-            <Typography sx={{ color: "#fff" }}>
-              {user ? `Welcome, ${user.email.split("@")[0]}` : "Welcome, Guest"}
+        <Toolbar
+          sx={{
+            px: "1.5rem",
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+            <IconButton component={Link} to="/" disableRipple>
+              <img src={logo} alt="App Logo" className="logo-image" />
+            </IconButton>
+            <Typography
+              variant="h4"
+              component={Link}
+              to="/"
+              sx={{ color: "#fff", fontWeight: "bold", textDecoration: "none" }}
+            >
+              Workout Tracker
             </Typography>
           </Box>
 
-          <Box>
+          <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+            <Typography sx={{ color: "#fff" }}>
+              {user ? `Welcome, ${user.email.split("@")[0]}` : "Welcome, Guest"}
+            </Typography>
+
+            {/* If Admin, show Dashboard link */}
             {user?.role === "Admin" && (
               <Button
                 component={Link}
                 to="/admin/Dashboard"
-                sx={{ color: "#fff", textTransform: "none", mr: 1 }}
+                sx={{ color: "#fff", textTransform: "none" }}
               >
                 Admin Dashboard
               </Button>
             )}
+
             {user ? (
               <Button
                 onClick={logout}
-                sx={{ color: "#fff", textTransform: "none", mr: 1 }}
+                sx={{ color: "#fff", textTransform: "none" }}
               >
                 Logout
               </Button>
@@ -96,12 +83,13 @@ const NavBar = ({ mode, toggleColorMode }) => {
               <Button
                 component={Link}
                 to="/signin"
-                sx={{ color: "#fff", textTransform: "none", mr: 1 }}
+                sx={{ color: "#fff", textTransform: "none" }}
               >
                 Log in
               </Button>
             )}
 
+            {/* Theme Toggle */}
             <IconButton
               onClick={toggleColorMode}
               sx={{ color: "#fff" }}

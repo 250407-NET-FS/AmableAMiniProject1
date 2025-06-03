@@ -66,16 +66,17 @@ const SignInContainer = styled(Stack)(({ theme }) => {
 });
 
 export default function SignIn() {
-  const theme = useTheme(); // you can still read palette.mode if you need it
+  const theme = useTheme();
   const { login } = useAuth();
   const [emailError, setEmailError] = React.useState(false);
   const [emailErrorMessage, setEmailErrorMessage] = React.useState("");
   const [passwordError, setPasswordError] = React.useState(false);
   const [passwordErrorMessage, setPasswordErrorMessage] = React.useState("");
   const [logInError, setLogInError] = React.useState(false);
+  const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
-    const navigate = useNavigate();
+
     event.preventDefault();
     if (!validateInputs()) return;
 
@@ -83,7 +84,7 @@ export default function SignIn() {
     const Password = event.currentTarget.password.value;
     const success = await login({ Email, Password });
     if (success){
-      navigate("../signin")
+      navigate("/", { replace: true });
     }
     else {
       setLogInError(true);
