@@ -168,7 +168,7 @@ var app = builder.Build();
     app.MapOpenApi();
     app.UseSwagger();
     app.UseSwaggerUI();
-    // app.UseCors("AllowReactApp");
+    app.UseCors("AllowReactApp");
     // Console.WriteLine("allowed dev");
     
 //}

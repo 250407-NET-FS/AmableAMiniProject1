@@ -6,7 +6,7 @@ namespace MiniProject.Api.Controllers;
 public class UsersController : ApiController
 {
     [HttpPost("register")]
-    public async Task<ActionResult<string>> Register(RegisterUser.RegisterCommand command, CancellationToken ct)
+    public async Task<ActionResult<string>> Register([FromBody] RegisterUser.RegisterCommand command, CancellationToken ct)
     {
         return await Mediator.Send(command, ct);
     }
