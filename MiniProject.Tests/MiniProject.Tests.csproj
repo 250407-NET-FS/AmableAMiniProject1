@@ -6,4 +6,14 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Moq" Version="4.20.72" />
+    <PackageReference Include="xunit" Version="2.9.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MiniProject.Models\MiniProject.Models.csproj" />
+    <ProjectReference Include="..\MiniProject.Services\MiniProject.Services.csproj" />
+  </ItemGroup>
+
 </Project>
