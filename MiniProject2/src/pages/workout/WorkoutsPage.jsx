@@ -88,7 +88,6 @@ export default function WorkoutsPage() {
       .then((res) => {
         const data = Array.isArray(res.data) ? res.data : [];
         setWorkouts(data);
-        console.log(workouts);
       })
       .catch((err) => {
         console.error("Error fetching workouts:", err);
