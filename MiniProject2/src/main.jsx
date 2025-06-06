@@ -5,7 +5,7 @@ import "./index.css";
 import App from "./App.jsx";
 import Register from "./Register.jsx";
 import SignIn from "./SignIn.jsx";
-import NavBar from "./shared/navbar.jsx";
+import NavBar from "./shared/Navbar.jsx";
 import { AuthProvider } from "./context/AuthContext.jsx";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { createTheme, ThemeProvider, CssBaseline, Box } from "@mui/material";
